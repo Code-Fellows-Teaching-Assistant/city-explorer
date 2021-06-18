@@ -39,23 +39,16 @@ class Forms extends React.Component {
     try {
       let URL = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${this.state.city}&format=json`
       const response = await axios.get(URL);
-      console.log(response)
+      console.log({response})
       const cityInfo = response.data[0];
+      let cityMap = await `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${cityInfo.lat},${cityInfo.lon}&zoom=18&size=30remx30rem`;
       
       let displayName = cityInfo.display_name;
       let cityLat = cityInfo.lat;
       let cityLon = cityInfo.lon;
-
+      
       let weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather?lat=${cityLat}&lon=${cityLon}&searchQuery=${displayName.split(",")[0]}`);
-      console.log(weatherData)
-      console.log(displayName)
-      let cityMap = await `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${cityLat},${cityLon}&zoom=18&size=30remx30rem`;
-
-     
-      
       let movieData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/movie?movie=${displayName.split(",")[0]}`);
-      
-
       this.setState({ cityMap,displayName, cityLat, cityLon, weather: weatherData.data,movie: movieData.data })
     }
      catch (err) {
