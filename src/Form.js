@@ -49,7 +49,7 @@ class Forms extends React.Component {
       let weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather?lat=${cityLat}&lon=${cityLon}&searchQuery=${displayName.split(",")[0]}`);
       console.log(weatherData)
       console.log(displayName)
-      let cityMap = `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${cityLat},${cityLon}&zoom=18`;
+      let cityMap = await `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${cityLat},${cityLon}&zoom=18&size=30remx30rem`;
 
      
       
@@ -99,13 +99,10 @@ class Forms extends React.Component {
             </ul>
           </Card>
         }
-        {this.state.cityMap?
-        <Card style={{ width: '30rem' }}>
-         
+        {this.state.cityMap ? <img src={this.state.cityMap} alt="city" /> : ""}
+        {/* <Card style={{ width: '30rem' }}>        
           <Card.Img variant="top" src={this.state.cityMap} />
-        </Card>
-        :""
-       }
+        </Card> */}
         <Weather banana={this.state.weather} />
         <Movie banana={this.state.movie}/>
 
