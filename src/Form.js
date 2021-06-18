@@ -41,7 +41,7 @@ class Forms extends React.Component {
       const response = await axios.get(URL);
       console.log({response})
       const cityInfo = response.data[0];
-      let cityMap = await `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${cityInfo.lat},${cityInfo.lon}&zoom=18&size=30remx30rem`;
+      let cityMap = `https://maps.locationiq.com/v3/staticmap?key=${key}&center=${cityInfo.lat},${cityInfo.lon}&zoom=18`;
       
       let displayName = cityInfo.display_name;
       let cityLat = cityInfo.lat;
@@ -92,10 +92,10 @@ class Forms extends React.Component {
             </ul>
           </Card>
         }
-        {/* {this.state.cityMap ? <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18&size=30remx30rem`} alt="city" /> : ""} */}
-        {this.state.city ? <Card style={{ width: '30rem' }}>
-          <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18&size=30remx30rem`} />
-        </Card> : ''}
+        {/* {this.state.cityMap ? <img src={this.state.cityMap} alt="city" /> : ""} */}
+        <Card style={{ width: '30rem' }}>        
+          <Card.Img variant="top" src={this.state.cityMap} />
+        </Card>
         <Weather banana={this.state.weather} />
         <Movie banana={this.state.movie}/>
 
