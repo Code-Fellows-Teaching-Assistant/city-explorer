@@ -8,7 +8,6 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const key = process.env.REACT_APP_CITY_KEY;
 
 class Forms extends React.Component {
 
@@ -37,6 +36,7 @@ class Forms extends React.Component {
     e.preventDefault();
 
     try {
+      const key = process.env.REACT_APP_CITY_KEY;
       let URL = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${this.state.city}&format=json`
       const response = await axios.get(URL);
       console.log({response})
@@ -92,10 +92,10 @@ class Forms extends React.Component {
             </ul>
           </Card>
         }
-        {this.state.cityMap ? <img src={this.state.cityMap} alt="city" /> : ""}
-        {/* <Card style={{ width: '30rem' }}>        
-          <Card.Img variant="top" src={this.state.cityMap} />
-        </Card> */}
+        {/* {this.state.cityMap ? <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18&size=30remx30rem`} alt="city" /> : ""} */}
+        {this.state.city ? <Card style={{ width: '30rem' }}>
+          <Card.Img variant="top" src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18&size=30remx30rem`} />
+        </Card> : ''}
         <Weather banana={this.state.weather} />
         <Movie banana={this.state.movie}/>
 
